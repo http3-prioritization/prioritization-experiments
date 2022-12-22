@@ -1,0 +1,470 @@
+<html>
+    <head>
+        
+        <style>
+        
+        /* Table inspired by https://colorlib.com/etc/tb/Table_Responsive_v1/index.html */
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+            
+        .limiter {
+            width:100%;
+            margin:0 auto
+        }
+        .container-table100 {
+            width:1000px;
+            min-height:100vh;
+            background:#c850c0;
+            background:-webkit-linear-gradient(45deg,#4158d0,#c850c0);
+            background:-o-linear-gradient(45deg,#4158d0,#c850c0);
+            background:-moz-linear-gradient(45deg,#4158d0,#c850c0);
+            background:linear-gradient(45deg,#4158d0,#c850c0);
+            display:-webkit-box;
+            display:-webkit-flex;
+            display:-moz-box;
+            display:-ms-flexbox;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-wrap:wrap;
+            padding:33px 30px;
+        }
+        @media(max-width:700px){
+            .container-table100{
+                padding: 0px;
+            }
+        }
+        .wrap-table100 {
+            min-width: 700px;
+            max-width: 1000px;
+        }
+        .ptable {
+            border-spacing:1;
+            border-collapse:collapse;
+            background:#fff;
+            border-radius:10px;
+            overflow:hidden;
+            width:100%;
+            margin:0 auto;
+            position:relative;
+            
+            table-layout: fixed; /* same column widths */
+        }
+        .ptable *{
+            position:relative
+        }
+        .ptable td, .ptable th{
+            padding-left:2px
+        }
+        .ptable thead tr{
+            height:60px;
+            background:#36304a
+        }
+        .ptable tbody tr{
+            height:50px
+        }
+        .ptable tbody tr:last-child{
+            border:0
+        }
+        .ptable td,table th {
+            text-align:center
+        }
+        .ptable td:not(:last-child) {
+            border-right: 1px solid #ededed;
+        }
+        .ptable td img {
+            padding-left: 2px;
+        }      
+        .table100-head th{
+            font-family:'Open Sans';
+            font-size:17px;
+            color:#fff;
+            line-height:1.2;
+            font-weight:unset
+        }
+        .ptable tbody tr:nth-child(even){
+            background-color:#f5f5f5
+        }
+        .ptable tbody tr{
+            font-family:'Open Sans';
+            font-size:15px;
+            color:gray;
+            line-height:1.2;
+            font-weight:unset
+        }
+        .ptable tbody tr:hover{
+            color:#555;
+            background-color:#CCCCCC;
+            cursor:pointer
+        }
+        .ptable .column1 {
+            width:150px;
+            padding-right:10px;
+            text-align: right;
+        }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container-table100">
+        
+        <div class="wrap-table100">
+        <table class="ptable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">↓ Type / Priority →</th>
+            <th>Highest</th>
+            <th>High</th>
+            <th>Medium</th>
+            <th>Low</th>
+            <th>Lowest</th>
+        </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="column1">Main resource (HTML)</td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Font (preload)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Font (@font-face)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+        </tbody>
+        </table>
+        </div>
+            
+        <div class="wrap-table100">
+        <table class="ptable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">↓ Type / Priority →</th>
+            <th class="column2">Highest</th>
+            <th class="column3">High</th>
+            <th class="column4">Medium</th>
+            <th class="column5">Low</th>
+            <th class="column6">Lowest</th>
+        </tr>
+        </thead>
+        <tbody>
+                
+                <tr>
+                    <td class="column1">CSS (preload)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">CSS (head)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">CSS (import)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">CSS (print)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">CSS (bottom)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
+            
+        <div class="wrap-table100">
+        <table class="ptable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">↓ Type / Priority →</th>
+            <th class="column2">Highest</th>
+            <th class="column3">High</th>
+            <th class="column4">Medium</th>
+            <th class="column5">Low</th>
+            <th class="column6">Lowest</th>
+        </tr>
+        </thead>
+        <tbody>
+                
+                <tr>
+                    <td class="column1">JS (preload)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (prefetch)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (head)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (async)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (defer)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (body)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">JS (bottom)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
+            
+        
+            
+        <div class="wrap-table100">
+        <table class="ptable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">↓ Type / Priority →</th>
+            <th class="column2">Highest</th>
+            <th class="column3">High</th>
+            <th class="column4">Medium</th>
+            <th class="column5">Low</th>
+            <th class="column6">Lowest</th>
+        </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td class="column1">Image (preload)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (preload + fetchpriority)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (body)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (lazy)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (hidden)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (CSS bg)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Image (poster)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">SVG (img)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">SVG (iframe)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">SVG (object)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">video</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+        
+            </tbody>
+        </table>
+        </div>
+            
+        <div class="wrap-table100">
+        <table class="ptable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">↓ Type / Priority →</th>
+            <th class="column2">Highest</th>
+            <th class="column3">High</th>
+            <th class="column4">Medium</th>
+            <th class="column5">Low</th>
+            <th class="column6">Lowest</th>
+        </tr>
+        </thead>
+        <tbody>
+                
+                <tr>
+                    <td class="column1">Fetch (inline)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Fetch (defer)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Fetch (fetchpriority)</td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><img src="chrome.png" width="32" height="32"><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                
+                <tr>
+                    <td class="column1">Fetch (manual priority)</td>
+                    <td><img src="chrome.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="safari.png" width="32" height="32"></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><img src="firefox.png" width="32" height="32"><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                    <td><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span><span style="display: inline-block; width: 32px; height: 32px;"></span></td>
+                </tr>
+                </tbody>
+        </table>
+        </div>
+        </div>
+</body>

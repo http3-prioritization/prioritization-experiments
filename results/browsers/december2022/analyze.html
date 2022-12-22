@@ -1,0 +1,490 @@
+<html>
+
+    <head>
+        <script src="chrome.js"></script>
+        <script src="firefox.js"></script>
+        <script src="safari.js"></script>
+        
+        <style>
+        
+        /* Table inspired by https://colorlib.com/etc/tb/Table_Responsive_v1/index.html */
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+            
+        .limiter {
+            width:100%;
+            margin:0 auto
+        }
+        .container-table100 {
+            width:100%;
+            min-height:100vh;
+            background:#c850c0;
+            background:-webkit-linear-gradient(45deg,#4158d0,#c850c0);
+            background:-o-linear-gradient(45deg,#4158d0,#c850c0);
+            background:-moz-linear-gradient(45deg,#4158d0,#c850c0);
+            background:linear-gradient(45deg,#4158d0,#c850c0);
+            display:-webkit-box;
+            display:-webkit-flex;
+            display:-moz-box;
+            display:-ms-flexbox;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-wrap:wrap;
+            padding:33px 30px;
+        }
+        @media(max-width:700px){
+            .container-table100{
+                padding: 0px;
+            }
+        }
+        .wrap-table100 {
+            min-width: 700px;
+            max-width: 1000px;
+        }
+        .ptable {
+            border-spacing:1;
+            border-collapse:collapse;
+            background:#fff;
+            border-radius:10px;
+            overflow:hidden;
+            width:100%;
+            margin:0 auto;
+            position:relative;
+            
+            table-layout: fixed; /* same column widths */
+        }
+        .ptable *{
+            position:relative
+        }
+        .ptable td, .ptable th{
+            padding-left:2px
+        }
+        .ptable thead tr{
+            height:60px;
+            background:#36304a
+        }
+        .ptable tbody tr{
+            height:50px
+        }
+        .ptable tbody tr:last-child{
+            border:0
+        }
+        .ptable td,table th {
+            text-align:center
+        }
+        .ptable td:not(:last-child) {
+            border-right: 1px solid #ededed;
+        }
+        .ptable td img {
+            padding-left: 2px;
+        }      
+        .table100-head th{
+            font-family:'Open Sans';
+            font-size:17px;
+            color:#fff;
+            line-height:1.2;
+            font-weight:unset
+        }
+        .ptable tbody tr:nth-child(even){
+            background-color:#f5f5f5
+        }
+        .ptable tbody tr{
+            font-family:'Open Sans';
+            font-size:15px;
+            color:gray;
+            line-height:1.2;
+            font-weight:unset
+        }
+        .ptable tbody tr:hover{
+            color:#555;
+            background-color:#CCCCCC;
+            cursor:pointer
+        }
+        .ptable .column1 {
+            width:150px;
+            padding-right:10px;
+            text-align: right;
+        }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container-table100">
+            
+        <div class="wrap-table100">
+        <table class="ptable" id="priorityTable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">&darr; Type / Priority &rarr;</th>
+            <th class="column2">Highest</th>
+            <th class="column3">High</th>
+            <th class="column4">Medium</th>
+            <th class="column5">Low</th>
+            <th class="column6">Lowest</th>
+        </tr>
+        </thead>
+        <tbody id="priorityTableBody">
+        
+        </tbody>
+        </table>
+        </div>
+            
+            
+            
+        </div>
+        
+        
+        
+        <script>
+            chrome_root.name = "chrome";
+            firefox_root.name = "firefox";
+            safari_root.name = "safari";
+            const qlogs = [chrome_root, firefox_root, safari_root];
+            
+            // one key per qlog.name (so one per browser)
+                // .chrome[]
+                // .safari[]
+                // .firefox[]
+                    // .stream_id
+                    // .path
+                    // .time
+                    // .priorities[]
+                    // .priority // string concat version of .priorities for easier debugging
+            let results = {};
+            
+            
+            for ( let qlog of qlogs ) {
+                
+                let streams = [];
+                results[ qlog.name ] = streams;
+                
+                const events = qlog.traces[0].events;
+                
+                for ( let evt of events ) {
+                    if ( evt.name == "http:frame_parsed") {
+                        // console.log( evt );
+                        
+                        const frame = evt.data.frame;
+                        const frame_type = frame.frame_type;
+                        
+                        if ( frame_type == "headers" ) {
+                            const stream_id = evt.data.stream_id;
+                            
+                            let path = frame.headers.filter( (header) => header.name == ":path");
+                            if ( !path || path.length != 1 ) {
+                                console.error("No path found for headers frame... shouldn't happen!", frame);
+                                continue;
+                            }
+                            path = path[0].value;
+                            
+                            let stream = streams[ stream_id ]; // sparse array lookup, but shouldn't matter for this small amount of data
+                            if( stream === undefined ) {
+                                streams[ stream_id ] = { stream_id: stream_id, time: evt.time, path: path, priorities: [], priority: "" };
+                                stream = streams[ stream_id ];
+                            }
+                            
+                            stream.time = evt.time; // always want to have the request arrival time
+                            
+                            // not all streams will have a priority header set (set later through priority_update or just using the default u=3)
+                            const priority = frame.headers.filter( (header) => header.name == "priority");
+                            if ( priority && priority.length != 0 ) {
+                                if ( priority.length != 1 ) {
+                                    // would mean the browser sends 2 headers
+                                    // or, in our case, doesn't override the browser header with the javascript-set header :) 
+                                    console.warn("Two priority headers... shouldn't happen!", priority, frame);
+                                    
+                                                                    
+                                    stream.priorities.push( "HEADER1: " + priority[0].value );
+                                    stream.priority +=  " HEADER1: " + priority[0].value;
+                                    
+                                                                    
+                                    stream.priorities.push( "HEADER2: " + priority[1].value );
+                                    stream.priority +=  " HEADER2: " + priority[1].value;
+                                    
+                                    continue;
+                                }
+                                
+                                stream.priorities.push( "HEADER: " + priority[0].value );
+                                stream.priority +=  " HEADER: " + priority[0].value;
+                            }
+                            
+                            // not all streams will have a path set (priority_update frame can arrive before the actual headers frame)
+                            if ( stream.path === undefined ) {
+                                stream.path = path;
+                            }
+                        }
+                        else if ( frame_type == "priority_update" ) {
+                            // console.log("UPDATE", frame.value );
+                            
+                            const stream_id = frame.element_id;
+                            const priority = frame.value; 
+                            
+                            let stream = streams[ stream_id ];
+                            
+                            // if priority_update arrives before headers
+                            if ( stream === undefined ) {
+                                streams[ stream_id ] = { stream_id: stream_id, time: undefined, path: undefined, priorities: [], priority: "" };
+                                stream = streams[ stream_id ];
+                            }
+                            
+                            stream.priorities.push( "FRAME: " + priority );
+                            stream.priority +=  " FRAME: " + priority;
+                            
+                        }
+                    }
+                }
+            }
+            
+            // we now have a results object with 1 child per browser
+            // we want to transpose this to a results object with 1 child per path, which has priority info per browser as a string
+            // this is nicely compatible with console.table() :) 
+            
+            // per path:
+                // .chrome 
+                // .firefox
+                // .safari
+            
+            // the paths are now in request-order, as received by the server
+            // this is suboptimal for this specific analysis, as we want similar resource types grouped in the results for easy comparison
+            // e.g., lazy loaded images are requested much later than eager images, but we want them side-by-side here
+            // so we prep the pivot table with the paths in expected order for easier reasoning
+            // this is the order in the HTML test page
+
+            let resultsPivot = {};
+            resultsPivot["/test/test_all.html"] = {};
+            resultsPivot["/test/assets/font1.woff2?preload"] = {};
+            resultsPivot["/test/assets/font2.woff2?preload"] = {};
+            resultsPivot["/test/assets/script.js?preload"] = {};
+            resultsPivot["/test/assets/style.css?preload"] = {};
+            resultsPivot["/test/assets/img1.png?preload"] = {};
+            resultsPivot["/test/assets/img1.png?preload-fetchpriority"] = {};
+            resultsPivot["/test/assets/script.js?prefetch"] = {};
+            resultsPivot["/test/assets/style.css?head"] = {};
+            resultsPivot["/test/assets/fonts.css?head"] = {};
+            resultsPivot["/test/assets/font1.woff2?from-css"] = {};
+            resultsPivot["/test/assets/font2.woff2?from-css"] = {};
+            resultsPivot["/test/assets/style.css?head-print"] = {};
+            resultsPivot["/test/assets/script.js?head"] = {};
+            resultsPivot["/test/assets/script.js?head-async"] = {};
+            resultsPivot["/test/assets/script.js?head-defer"] = {};
+            resultsPivot["/test/assets/script.js?head-async-blocking"] = {};
+            resultsPivot["/test/assets/script.js?head-defer-blocking"] = {};
+            resultsPivot["/test/assets/data.json?head"] = {};
+            resultsPivot["/test/assets/script-fetch.js?head-defer"] = {};
+            resultsPivot["/test/assets/data.json?script-defer"] = {};
+            resultsPivot["/test/assets/style.css?head-import"] = {};
+            resultsPivot["/test/assets/img1.png?css-background"] = {};
+            resultsPivot["/test/assets/img1.png?visible-eager"] = {};
+            resultsPivot["/test/assets/img1.png?visible-lazy"] = {};
+            resultsPivot["/test/assets/img2.svg?image"] = {};
+            resultsPivot["/test/assets/img2.svg?iframe"] = {};
+            resultsPivot["/test/assets/img2.svg?object"] = {};
+            // resultsPivot["/test/assets/img2.svg?embed"] = {};
+            resultsPivot["/test/assets/script.js?body-afterimage"] = {};
+            resultsPivot["/test/assets/img1.png?hidden-eager"] = {};
+            resultsPivot["/test/assets/img1.png?hidden-lazy"] = {};
+            resultsPivot["/test/assets/img1.png?videoposter"] = {};
+            resultsPivot["/test/assets/movie.mp4"] = {};
+            resultsPivot["/test/assets/style.css?bottom"] = {};
+            resultsPivot["/test/assets/script.js?bottom"] = {};
+            resultsPivot["/test/assets/data.json?bottom-fetchpriority"] = {};
+            resultsPivot["/test/assets/data.json?bottom-priority"] = {};
+            
+            for ( let qlog of qlogs ) {
+                const name = qlog.name;
+                
+                for ( let streamNr in results[name] ) {
+                    const stream = results[name][streamNr];
+                    const path = stream.path;
+                   
+                    let result = resultsPivot[path];
+                    if( result === undefined ){
+                        console.error("Path found that was not preset in the pivotTable... shouldn't happen", path);
+                        resultsPivot[path] = {};
+                        result = resultsPivot[path];
+                    }
+                    
+                    result[ name ] = stream.priority;
+                }
+            }
+            
+            console.table( resultsPivot );
+            
+            // after looking at the data, I decided it makes more sense to represent it differently
+            // instead of having a column per browser and indicating the priority
+            // I want to have a column per priority bucket and show the browser icons/names in them 
+            
+            // for this, we need to map the priority value to one of highest, high, medium, low, lowest
+            // this requires per-browser logic, since they use the numerical values differently...
+            // Chrome:  0,1,2,3,4
+            // Firefox:   1,2,3,4
+            // Safari:  0,1, ,3, ,5, ,7
+            // chrome and firefox nicely map to the 5, for Firefox we'll leave out the "lowest" category
+            
+            const mappings = {};
+            mappings.chrome = {
+                "u=0": "highest",
+                "u=1": "high",
+                "u=2": "medium",
+                "empty": "low", // chrome doesn't actually send u=3 as it's the default
+                "u=3": "low", // for completeness sake
+                "u=4": "lowest",
+            };
+            mappings.firefox = {
+                "u=1": "highest",
+                "u=2": "high",
+                "u=3": "medium",
+                "empty": "medium", // Firefox doesn't actually send u=3 as it's the default
+                "u=4": "low", // for completeness sake
+            };
+            mappings.safari = {
+                "u=0": "highest",
+                "u=1": "high",
+                "u=3": "medium",
+                "u=5": "low",
+                "u=7": "lowest",
+            };
+            
+            const resultsMapped = {};
+            resultsMapped["/test/test_all.html"] = { name: "Main resource (HTML)" };
+            resultsMapped["/test/assets/font1.woff2?preload"] = { name: "Font (preload)"};
+            resultsMapped["/test/assets/font1.woff2?from-css"] = { name: "Font (@font-face)"};
+            
+            resultsMapped["/test/assets/script.js?preload"] = { name: "JS (preload)"};
+            resultsMapped["/test/assets/script.js?prefetch"] = { name: "JS (prefetch)"};
+            resultsMapped["/test/assets/script.js?head"] = { name: "JS (head)"};
+            resultsMapped["/test/assets/script.js?head-async"] = { name: "JS (async)"};
+            resultsMapped["/test/assets/script.js?head-defer"] = { name: "JS (defer)"};
+            resultsMapped["/test/assets/script.js?body-afterimage"] = { name: "JS (body)"};
+            resultsMapped["/test/assets/script.js?bottom"] = { name: "JS (bottom)"};
+            
+            resultsMapped["/test/assets/style.css?preload"] = { name: "CSS (preload)"};
+            resultsMapped["/test/assets/style.css?head"] = { name: "CSS (head)"};
+            resultsMapped["/test/assets/style.css?head-import"] =  { name: "CSS (import)"};
+            resultsMapped["/test/assets/style.css?head-print"] =  { name: "CSS (print)"};
+            resultsMapped["/test/assets/style.css?bottom"] =  { name: "CSS (bottom)"};
+            
+            resultsMapped["/test/assets/img1.png?preload"] =  { name: "Image (preload)"};
+            resultsMapped["/test/assets/img1.png?preload-fetchpriority"] = { name: "Image (preload + fetchpriority)"};
+            resultsMapped["/test/assets/img1.png?visible-eager"] = { name: "Image (body)"};
+            resultsMapped["/test/assets/img1.png?visible-lazy"] = { name: "Image (lazy)"};
+            resultsMapped["/test/assets/img1.png?hidden-eager"] = { name: "Image (hidden)"};
+            resultsMapped["/test/assets/img1.png?css-background"] =  { name: "Image (CSS bg)"}; // maybe remove? should be same as visible-eager? 
+            resultsMapped["/test/assets/img1.png?videoposter"] = { name: "Image (poster)"};
+            
+            resultsMapped["/test/assets/img2.svg?image"] =  { name: "SVG (img)"};
+            resultsMapped["/test/assets/img2.svg?iframe"] = { name: "SVG (iframe)"};
+            resultsMapped["/test/assets/img2.svg?object"] = { name: "SVG (object)"};
+            resultsMapped["/test/assets/movie.mp4"] =  { name: "video"};
+            
+            resultsMapped["/test/assets/data.json?head"] =  { name: "Fetch (inline)"};
+            resultsMapped["/test/assets/data.json?script-defer"] =  { name: "Fetch (defer)"};
+            resultsMapped["/test/assets/data.json?bottom-fetchpriority"] = { name: "Fetch (fetchpriority)"};
+            resultsMapped["/test/assets/data.json?bottom-priority"] =  { name: "Fetch (manual priority)"};
+            
+            
+            for ( let qlog of qlogs ) {
+                const name = qlog.name;
+                const mappingsForBrowser = mappings[ name ];
+                
+                for ( let streamNr in results[name] ) {
+                    const stream = results[name][streamNr];
+                    const path = stream.path;
+                    
+                    let priorityMapped = "";
+                    let priority = stream.priority;
+                    if ( priority === "" )
+                        priority = "empty"; // default priority assumed
+                    
+                    // look which numerical priority is present in the priority entry and map it to the textual representation
+                    for( const [numerical, text] of Object.entries(mappingsForBrowser) ){
+                        if ( priority.includes(numerical) ) {
+                            priorityMapped = text;
+                            break;
+                        }
+                    }
+                    
+                    let result = resultsMapped[path];
+                    if( result === undefined ){
+                        // if path is not predefined here, we don't want it in the final results, so just skip
+                        console.warn("Skipping path because it wasn't predefined: ", path);
+                        continue;
+                    }
+                    
+                    if ( result[priorityMapped] === undefined ) {
+                        result[priorityMapped] = "";
+                    }
+                    
+                    result[ priorityMapped ] += ((result[ priorityMapped ].length > 0) ? "," : "") + name;
+                }
+            }
+            
+            console.table( resultsMapped );
+            
+            // now let's make this into a nice HTML table as well :)
+            
+            let htmlResult = "";
+            
+            function addIcons(textual){
+
+                let icons = "";
+
+                if ( textual.includes("chrome") ) {
+                    icons += `<img src="chrome.png" width="32" height="32" />`;
+                }
+                else {
+                    icons += `<span style="display: inline-block; width: 32px; height: 32px;"></span>`;
+                }
+                
+                if ( textual.includes("firefox") ) {
+                    icons += `<img src="firefox.png" width="32" height="32" />`;
+                }
+                else {
+                    icons += `<span style="display: inline-block; width: 32px; height: 32px;"></span>`;
+                }
+                
+                if ( textual.includes("safari") ) {
+                    icons += `<img src="safari.png" width="32" height="32" />`;
+                }
+                else {
+                    icons += `<span style="display: inline-block; width: 32px; height: 32px;"></span>`;
+                }
+                
+                return icons;
+            }
+            
+            for( let mappedResult of Object.values(resultsMapped) ) {
+                const name = mappedResult.name;
+                let highest = mappedResult.highest ?? "";
+                let high = mappedResult.high ?? "";
+                let medium = mappedResult.medium ?? "";
+                let low = mappedResult.low ?? "";
+                let lowest = mappedResult.lowest ?? "";
+                
+                highest = addIcons(highest);
+                high = addIcons(high);
+                medium = addIcons(medium);
+                low = addIcons(low);
+                lowest = addIcons(lowest);
+                
+                htmlResult += `
+                <tr>
+                    <td class="column1">${name}</td>
+                    <td>${highest}</td>
+                    <td>${high}</td>
+                    <td>${medium}</td>
+                    <td>${low}</td>
+                    <td>${lowest}</td>
+                </tr>
+                `;
+            }
+            
+            document.getElementById("priorityTableBody").innerHTML = htmlResult;
+            
+            
+        </script>
+        
+    </body>
+    
+</html>
